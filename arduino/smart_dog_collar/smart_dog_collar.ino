@@ -47,9 +47,9 @@ namespace
   Output_Handler output_handler;
 
   // TODO: Idk if these are needed
-  int feature_buffer[6] = {0, 0, 0, 0, 0, 0};
-  float current_acceleration[3] = { 0.0f, 0.0f, 0.0f };
-  float current_rotation[3] = { 0.0f, 0.0f, 0.0f };
+  // int feature_buffer[6] = {0, 0, 0, 0, 0, 0};
+  // float current_acceleration[3] = { 0.0f, 0.0f, 0.0f };
+  // float current_rotation[3] = { 0.0f, 0.0f, 0.0f };
 }
 
 void setup() {
@@ -113,6 +113,9 @@ void setup() {
     return;
   }
 
+  // TODO Random testing for input size
+  int input_length = model_input->bytes / sizeof(float);
+
   // TODO: Check if setup correctly
   // Obtain pointer to model's output and check model output parameters
   model_output = interpreter->output(0);
@@ -132,19 +135,19 @@ void loop() {
   }
 
   // Read data from sensors
-  sensor.readAccelerometerAndGyroscope(error_reporter);
+  sensor.readAccelerometerAndGyroscope(error_reporter, model_input->data.f);
   // Update feature buffer?
 
-  // Give gyroscope data to model
-  for (int i = 0; i < 3; i++) 
-  {
-    model_input->data.f[i] = feature_buffer[i];
-  }
-  //Give accelerometer data to model
-  for (int i = 0; i < 3; i++) 
-  {
-    model_input->data.f[i + 3] = feature_buffer[i + 3];
-  }
+  // // Give gyroscope data to model
+  // for (int i = 0; i < 3; i++) 
+  // {
+  //   model_input->data.f[i] = feature_buffer[i];
+  // }
+  // //Give accelerometer data to model
+  // for (int i = 0; i < 3; i++) 
+  // {
+  //   model_input->data.f[i + 3] = feature_buffer[i + 3];
+  // }
 
   TfLiteStatus invoke_status = interpreter->Invoke();
   if (invoke_status != kTfLiteOk) 
@@ -171,17 +174,17 @@ void loop() {
 
   #ifdef SMART_DOG_COLLAR_DEBUG
   // Check what for the iteration of the model that just occured
-  Serial.println("Data from loop()");
-  Serial.print(feature_buffer[0]);
-  Serial.print('\t');
-  Serial.print(feature_buffer[1]);
-  Serial.print('\t');
-  Serial.print(feature_buffer[2]);
-  Serial.print('\t');
-  Serial.print(feature_buffer[3]);
-  Serial.print('\t');
-  Serial.print(feature_buffer[4]);
-  Serial.print('\t');
-  Serial.println(feature_buffer[5]);
+  // Serial.println("Data from loop()");
+  // Serial.print(feature_buffer[0]);
+  // Serial.print('\t');
+  // Serial.print(feature_buffer[1]);
+  // Serial.print('\t');
+  // Serial.print(feature_buffer[2]);
+  // Serial.print('\t');
+  // Serial.print(feature_buffer[3]);
+  // Serial.print('\t');
+  // Serial.print(feature_buffer[4]);
+  // Serial.print('\t');
+  // Serial.println(feature_buffer[5]);
   #endif
 }

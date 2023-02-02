@@ -17,10 +17,10 @@
 #define SMART_DOG_COLLAR_DEBUG
 // #undef SMART_DOG_COLLAR_DEBUG
 // TODO LIST
-// Double check data FIFO
-// output handler
-// tensor input/output checks
-// ml model input
+// 1: Double check data FIFO
+// 2: tensor input/output checks
+// 3: Figure out if the current ml model input is correct
+// 4: output handler (AWS stuff)
 
 namespace 
 {
@@ -46,7 +46,7 @@ namespace
   Sensors sensor;
   Output_Handler output_handler;
 
-  // TODO: Idk if these are needed
+  // TODO 3: Idk if these are needed
   // int feature_buffer[6] = {0, 0, 0, 0, 0, 0};
   // float current_acceleration[3] = { 0.0f, 0.0f, 0.0f };
   // float current_rotation[3] = { 0.0f, 0.0f, 0.0f };
@@ -104,7 +104,7 @@ void setup() {
     return;
   }
 
-  // TODO: Check if setup correctly
+  // TODO 2: Check if setup correctly
   // Obtain pointer to model's input and check model input parameters
   model_input = interpreter->input(0);
   if ((model_input->dims->size != input_count) || (model_input->dims->data[0] != 1)) 
@@ -113,10 +113,10 @@ void setup() {
     return;
   }
 
-  // TODO Random testing for input size
+  // TODO 3 Random testing for input size
   int input_length = model_input->bytes / sizeof(float);
 
-  // TODO: Check if setup correctly
+  // TODO 2: Check if setup correctly
   // Obtain pointer to model's output and check model output parameters
   model_output = interpreter->output(0);
   if ((model_output->dims->size != label_count) || (model_output->dims->data[0] != 1) || (model_output->dims->data[1] != label_count)) 

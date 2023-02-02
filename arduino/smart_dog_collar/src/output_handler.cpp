@@ -1,6 +1,6 @@
 #include "../inc/output_handler.h"
 
-// TODO: handle output in some way
+// TODO 4: handle output in some way
 void Output_Handler::handleOutput(int activity)
 { 
 // Handle seizure

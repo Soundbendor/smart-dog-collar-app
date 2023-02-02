@@ -121,6 +121,7 @@ void Sensors::readAccelerometerAndGyroscope(tflite::ErrorReporter *error_reporte
         gyroscope_skip_counter++;
         acceleration_skip_counter++;
 
+        // TODO 3?
         // // Copy the data into the ML model's input tensor
         // for(int i = 0; i < GYROSCOPE_COUNT; i++)
         // {
